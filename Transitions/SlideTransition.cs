@@ -23,10 +23,10 @@ public class SlideTransition : TransitionBase {
             progress += speed;
             progress = Mathf.Clamp01(progress);
 
-            nextScreen.RectTransform.anchoredPosition = GetAnchoredPosition(Screen.width, 0f, progress);
+            UpdateScreenPosition(nextScreen, 1f, 0f, progress);
             if (currentScreen != null)
             {
-                currentScreen.RectTransform.anchoredPosition = GetAnchoredPosition(0f, -Screen.width / 3, progress);
+                UpdateScreenPosition(currentScreen, 0f, -0.3f, progress);
             }
 
             yield return null;
@@ -54,10 +54,10 @@ public class SlideTransition : TransitionBase {
             progress += speed;
             progress = Mathf.Clamp01(progress);
 
-            currentScreen.RectTransform.anchoredPosition = GetAnchoredPosition(0f, Screen.width, progress);
+            UpdateScreenPosition(currentScreen, 0f, 1f, progress);
             if (previousScreen != null)
             {
-                previousScreen.RectTransform.anchoredPosition = GetAnchoredPosition(-Screen.width / 3, 0f, progress);
+                UpdateScreenPosition(previousScreen, -0.3f, 0f, progress);
             }
 
             yield return null;
@@ -68,6 +68,14 @@ public class SlideTransition : TransitionBase {
         {
             previousScreen.OnShown();
         }
+    }
+
+    private void UpdateScreenPosition(NavScreen screen, float from, float to, float progress) {
+        float easedProgress = Mathf.SmoothStep(from, to, progress);
+        Vector2 newAnchorMin = new Vector2(easedProgress, 0f);
+        Vector2 newAnchorMax = new Vector2(1f + easedProgress, 1f);
+        screen.RectTransform.anchorMin = newAnchorMin;
+        screen.RectTransform.anchorMax = newAnchorMax;
     }
 
     private Vector2 GetAnchoredPosition(float startValue, float endValue, float progress)

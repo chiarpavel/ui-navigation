@@ -7,6 +7,9 @@ namespace UINavigation
     public class NavScreen : MonoBehaviour
     {
         private RectTransform rectTransform;
+        /// <summary>
+        /// The GameObject's RectTransform.
+        /// </summary>
         public RectTransform RectTransform
         {
             get
@@ -40,7 +43,7 @@ namespace UINavigation
         public UnityEvent Hidden;
 
         /// <summary>
-        /// Called at the end of a transition when the screen has come into view
+        /// Called at the end of a transition when the screen has come into view.
         /// </summary>
         public void OnShown()
         {
@@ -48,7 +51,7 @@ namespace UINavigation
         }
 
         /// <summary>
-        /// Called at the end of a transition when the screen has left view
+        /// Called at the end of a transition when the screen has left view.
         /// </summary>
         public void OnHidden()
         {
@@ -56,7 +59,7 @@ namespace UINavigation
         }
 
         /// <summary>
-        /// Called at the start of a transition when the screen is coming into view
+        /// Called at the start of a transition when the screen is coming into view.
         /// </summary>
         public void OnShowing()
         {
@@ -64,7 +67,7 @@ namespace UINavigation
         }
 
         /// <summary>
-        /// Called at the start of a transition when the screen is leaving view
+        /// Called at the start of a transition when the screen is leaving view.
         /// </summary>
         public void OnHiding()
         {

@@ -1,8 +1,8 @@
-# ui-navigation
+# UINavigation
 
 UI navigation for Unity
 
-version 0.1.0
+version 1.1.0
 
 [Download unitypackage](https://github.com/chiarpavel/ui-navigation/raw/master/ui-navigation.unitypackage)
 
@@ -24,10 +24,33 @@ Simply call _Navigator.GoTo_. This will navigate to the NavScreen passed as a pa
 
 You should extend TransitionBase and implement the _Play_ and _PlayReverse_ coroutines.
 
-_Play_ is called when moving "forward" or "deeper" into a menu, and _PlayReverse_ when going "up" or "back" to a previously visited menu.
-
 Make sure to call NavScreen's _OnEvent_ methods (_OnShowing_, _OnShown_, _OnHiding_, _OnHidden_) at the appropriate time if you plan on using NavScreen's events.
 
 Because TransitionBase is a ScriptableObject you need to create an asset. Add a CreateAssetMenuAttribute to be able to create one using the editor.
 
 See SlideTransition.cs for an example.
+
+## Public API
+
+### Navigator
+
+* initialScreen: `NavScreen` - This screen is added to the Navigator's stack on startup.
+* transition: `TransitionBase` - The transition's Play and PlayReverse methods are called when going from one screen to another.
+* emptyPathAllowed: `bool` - If set to false calling Navigator.GoBack when there is only one screen left in the stack will do nothing.
+* escapeKeyHandled: `bool` - If set to true pressing the Android back button, or the keyboard Escape key will call Navigator.GoBack.
+* Path: `String` - A string representation of the list of NavScreens the Navigator has in the current stack.
+* GoTo(targetScreen: `NavScreen`): `void` - Adds _targetScreen_ to the stack and uses the set transition (if there is one, otherwise simply raises the apropriate NavScreen events).
+* GoBack(): `void` - Removes the NavScreen at the top of the stack using the set transition.
+
+### NavScreen
+
+* RectTransform: `RectTransform` - The GameObject's RectTransform.
+* OnShown(): `void` - Called at the end of a transition when the screen has come into view.
+* OnHidden(): `void` - Called at the end of a transition when the screen has left view.
+* OnShowing(): `void` - Called at the start of a transition when the screen is coming into view.
+* OnHiding(): `void` - Called at the start of a transition when the screen is leaving view.
+
+### TransitionBase
+
+* Play(currentScreen: `NavScreen`, nextScreen: `NavScreen`): `IEnumerator` - Coroutine that is started when moving "forward" or "deeper" into a menu.
+* PlayReverse(currentScreen: `NavScreen`, previousScreen: `NavScreen`): `IEnumerator` - Coroutine that is started when going "up" or "back" to a previously visited menu.
