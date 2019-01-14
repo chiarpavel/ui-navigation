@@ -2,7 +2,7 @@
 
 UI navigation for Unity
 
-version 1.1.0
+version 1.2.0
 
 [Download unitypackage](https://github.com/chiarpavel/ui-navigation/raw/master/ui-navigation.unitypackage)
 
@@ -14,7 +14,7 @@ version 1.1.0
 2. Add __NavScreen__ components to all the menu screens you want to be able to navigate through.
 3. (_optional_) Add handlers to the NavScreen's events to set up or clean up the screens, useful if a screen's content depends on external state, such as a search results page.
 4. (_optional_) Add one of the NavScreens to your Navigator's _Initial Screen_ field if you have a start-up screen
-5. (_optional_) Add a transition to your Navigator's _Transition_ field. There is a SlideTransition included, or you can create your own by extending TransitionBase.
+5. (_optional_) Add a transition to your Navigator's _Transition_ field. There are several transitions included, or you can create your own by extending TransitionBase.
 
 ### Navigation
 
@@ -22,13 +22,15 @@ Simply call _Navigator.GoTo_. This will navigate to the NavScreen passed as a pa
 
 ## How to create a transition
 
+The easiest to create a new transition is to modify one of the existing ones.
+
 You should extend TransitionBase and implement the _Play_ and _PlayReverse_ coroutines.
 
 Make sure to call NavScreen's _OnEvent_ methods (_OnShowing_, _OnShown_, _OnHiding_, _OnHidden_) at the appropriate time if you plan on using NavScreen's events.
 
 Because TransitionBase is a ScriptableObject you need to create an asset. Add a CreateAssetMenuAttribute to be able to create one using the editor.
 
-See SlideTransition.cs for an example.
+See SlideTransition.cs or FadeTransition.cs for more details.
 
 ## Public API
 
@@ -45,6 +47,7 @@ See SlideTransition.cs for an example.
 ### NavScreen
 
 * RectTransform: `RectTransform` - The GameObject's RectTransform.
+* CanvasGroup: `CanvasGroup` - The GameObject's CanvasGroup. If the object doesn't have one a new CanvasGroup is added.
 * OnShown(): `void` - Called at the end of a transition when the screen has come into view.
 * OnHidden(): `void` - Called at the end of a transition when the screen has left view.
 * OnShowing(): `void` - Called at the start of a transition when the screen is coming into view.
@@ -54,3 +57,7 @@ See SlideTransition.cs for an example.
 
 * Play(currentScreen: `NavScreen`, nextScreen: `NavScreen`): `IEnumerator` - Coroutine that is started when moving "forward" or "deeper" into a menu.
 * PlayReverse(currentScreen: `NavScreen`, previousScreen: `NavScreen`): `IEnumerator` - Coroutine that is started when going "up" or "back" to a previously visited menu.
+
+## To do
+
+* add reset history functionality to Navigator

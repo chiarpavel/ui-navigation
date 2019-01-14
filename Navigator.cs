@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UINavigation {
+namespace UINavigation
+{
     public class Navigator : MonoBehaviour
     {
         /// <summary>
@@ -17,7 +18,7 @@ namespace UINavigation {
         /// <summary>
         /// If set to false calling Navigator.GoBack when there is only one screen left in the stack will do nothing.
         /// </summary>
-        [Tooltip("Should GoBack work when there is only one screen left in Path")]
+        [Tooltip("GoBack works when there is only one screen left in Path")]
         public bool emptyPathAllowed = true;
 
         /// <summary>
@@ -110,7 +111,8 @@ namespace UINavigation {
         /// <summary>
         /// Removes the NavScreen at the top of the stack using the set transition.
         /// </summary>
-        public void GoBack() {
+        public void GoBack()
+        {
             if (!initialized)
             {
                 Initialize();
@@ -146,7 +148,8 @@ namespace UINavigation {
             screens.RemoveAt(screens.Count - 1);
         }
 
-        private string GetPath() {
+        private string GetPath()
+        {
             if (screens.Count == 0)
             {
                 return "/";

@@ -22,6 +22,26 @@ namespace UINavigation
             }
         }
 
+        private CanvasGroup canvasGroup;
+        /// <summary>
+        /// The GameObject's CanvasGroup. Adds a new one if missing.
+        /// </summary>
+        public CanvasGroup CanvasGroup
+        {
+            get
+            {
+                if (canvasGroup == null)
+                {
+                    canvasGroup = GetComponent<CanvasGroup>();
+                    if (canvasGroup == null)
+                    {
+                        canvasGroup = gameObject.AddComponent<CanvasGroup>();
+                    }
+                }
+                return canvasGroup;
+            }
+        }
+
         /// <summary>
         /// Event invoked when the screen is coming into view and the transition is starting.
         /// </summary>
