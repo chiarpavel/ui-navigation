@@ -2,7 +2,7 @@
 
 UI navigation for Unity
 
-version 1.2.0
+version 1.3.0
 
 [Download unitypackage](https://github.com/chiarpavel/ui-navigation/raw/master/ui-navigation.unitypackage)
 
@@ -43,6 +43,7 @@ See SlideTransition.cs or FadeTransition.cs for more details.
 * Path: `String` - A string representation of the list of NavScreens the Navigator has in the current stack.
 * GoTo(targetScreen: `NavScreen`): `void` - Adds _targetScreen_ to the stack and uses the set transition (if there is one, otherwise simply raises the apropriate NavScreen events).
 * GoBack(): `void` - Removes the NavScreen at the top of the stack using the set transition.
+* Reset(): `void` - Clears the screen stack and adds the initial screen if one is set.
 
 ### NavScreen
 
@@ -57,7 +58,3 @@ See SlideTransition.cs or FadeTransition.cs for more details.
 
 * Play(currentScreen: `NavScreen`, nextScreen: `NavScreen`): `IEnumerator` - Coroutine that is started when moving "forward" or "deeper" into a menu.
 * PlayReverse(currentScreen: `NavScreen`, previousScreen: `NavScreen`): `IEnumerator` - Coroutine that is started when going "up" or "back" to a previously visited menu.
-
-## To do
-
-* add reset history functionality to Navigator

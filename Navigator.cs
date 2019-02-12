@@ -6,7 +6,7 @@ namespace UINavigation
     public class Navigator : MonoBehaviour
     {
         /// <summary>
-        /// This screen is added to the Navigator's stack on startup.
+        /// This screen is added to the Navigator's stack on startup and reset.
         /// </summary>
         public NavScreen initialScreen;
 
@@ -30,7 +30,6 @@ namespace UINavigation
         /// <summary>
         /// A string representation of the list of NavScreens the Navigator has in the current stack.
         /// </summary>
-        /// <value></value>
         public string Path
         {
             get
@@ -77,6 +76,15 @@ namespace UINavigation
             }
 
             initialized = true;
+        }
+
+        /// <summary>
+        /// Clears the screen stack and adds the initial screen if one is set.
+        /// </summary>
+        public void Reset()
+        {
+            screens.Clear();
+            Initialize();
         }
 
         /// <summary>
